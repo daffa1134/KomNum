@@ -25,6 +25,7 @@ public class MetodeTabel {
         System.out.print("Iterasi = ");
         n = in.nextInt();
 
+        // Menghitung step pembagi
         h = (b-a)/n;
 
         System.out.println("i \t\t    xi \t\t\t   f(xi)");
@@ -34,6 +35,7 @@ public class MetodeTabel {
             System.out.printf("%d \t\t %f \t\t %f\n", i, xi1, y1);
         }
 
+        // Dicari akar persamaan dan f(x) nya
         int i = 0;
         while (i <= n) {
             xi1 = a + i * h;
