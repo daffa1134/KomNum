@@ -21,6 +21,7 @@ public class MetodeSecant {
     public static void metodeTabel(double a, double b, int n) {
         double xi1, xi2, y1, y2, h;
 
+        // Menghitung step pembagi
         h = (b-a)/n;
 
         System.out.println("i \t\t    xi \t\t\t   f(xi)");
@@ -30,6 +31,7 @@ public class MetodeSecant {
             System.out.printf("%d \t\t %f \t\t %f\n", i, xi1, y1);
         }
 
+        // Dicari nilai range yang terdapat akar persamaan
         int i = 0;
         while (i <= n) {
             xi1 = a + i * h;
@@ -39,66 +41,67 @@ public class MetodeSecant {
 
             if (y1 == 0) {
                 batasBawah = xi1;
-                // System.out.printf("Akar persamaannya adalah = %f", batasBawah);
+                System.out.printf("Akar persamaannya adalah = %f\n\n", batasBawah);
                 break;
             } else if (y1 * y2 < 0) {
                 if (Math.abs(y1) < Math.abs(y2)) {
                     batasBawah = xi1;
                     batasAtas = xi2;
-                    // System.out.printf("Akar persamaannya adalah = %f\n", batasBawah);
+                    System.out.printf("Range yang terdapat akar terletak pada [%f, %f]\n\n", batasBawah, batasAtas);
                     break;
                 } else {
                     batasBawah = xi1;
                     batasAtas = xi2;
-                    // System.out.printf("Akar persamaannya adalah = %f\n", batasAtas);
+                    System.out.printf("Range yang terdapat akar terletak pada [%f, %f]\n\n", batasBawah, batasAtas);
                     break;
                 }
-            }
-            
+            }    
             i++;
         }
     }
     public static void main(String[] args) {
-        double a, b, e, y0, y1, y2 = 0;
+        double e, y0, y1, y2 = 0;
         double x0, x1, x2 = 0;
         int n;
 
         System.out.print("Nilai batas bawah = ");
-        a = in.nextDouble();
+        x0 = in.nextDouble();
         System.out.print("Nilai batas atas = ");
-        b = in.nextDouble();
+        x1 = in.nextDouble();
         System.out.print("Iterasi = ");
         n = in.nextInt();
         System.out.print("Nilai galat error = ");
         e = in.nextDouble();
-        
-        System.out.println("==============================METODE TABEL==============================");
-        metodeTabel(a, b, n);
+        in.close();
 
+        // Dipersempit range dengan menggunakan metode tabel
+        System.out.println("=======================METODE TABEL=======================");
+        metodeTabel(x0, x1, n);
+
+        // Memperbarui batas bawah dan batas atas yang diperoleh dari metode tabel
         x0 = batasBawah;
         x1 = batasAtas;
 
-        System.out.println("==============================METODE SECANT==============================");
         // Metode Secant
-        int i = 0;
-        
+        System.out.println("============================================================METODE SECANT============================================================");
         System.out.println("Iterasi\t\t\t    x0\t\t\t\t   x1\t\t\t\t   x2\t\t\t\t  f(x2)");
-        
+        int i = 0;
         while (Math.abs(fungsi(x1) - fungsi(x0)) >= e && i <= n) {
             y0 = fungsi(x0);
             y1 = fungsi(x1);
+            // Rumus yang digunakan pada metode secant
             x2 = x1 - y1 * ((x1 - x0) / (y1 - y0));
             y2 = fungsi(x2);
 
-            System.out.printf("%d\t\t\t%f\t\t\t%f\t\t\t%f\t\t\t%f\n", i, x0, x1, x2, y2);
-
+            System.out.printf("%d\t\t\t%f\t\t\t%f\t\t\t%f\t\t\t%.10f\n", i, x0, x1, x2, y2);
+            // Diperbarui nilai untuk pencarian berikutnya
             x0 = x1;
             x1 = x2;
             
             i++;
         }
 
-        System.out.printf("Akar persamaannya adalah = %f dengan f(x) = %f", x2, y2);
+        System.out.printf("Akar persamaannya adalah = %f dengan f(x) = %.10f", x2, y2);
 
     }
 }
