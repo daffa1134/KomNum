@@ -84,7 +84,7 @@ public class MetodeSecant {
         
         System.out.println("Iterasi\t\t\t    x0\t\t\t\t   x1\t\t\t\t   x2\t\t\t\t  f(x2)");
         
-        while (Math.abs(fungsi(x1)) >= e && i <= n) {
+        while (Math.abs(fungsi(x1) - fungsi(x0)) >= e && i <= n) {
             y0 = fungsi(x0);
             y1 = fungsi(x1);
             x2 = x1 - y1 * ((x1 - x0) / (y1 - y0));
